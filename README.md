@@ -12,11 +12,7 @@ Ruby on Rails
 * rails db:seed
 * 管理者ページはadmins/signin パスワードはseedファイルに記載
 
-
-### 実行コマンド
-bundle exec rspec spec/ --format documentation
-
-### 注意
+## 注意
 保存されている画像は全て常松の作成したものです。無断転載禁止。
 
 
