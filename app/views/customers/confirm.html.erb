@@ -1,0 +1,7 @@
+	<div class="row customer-confirm">
+			<h3 class="center">本当に退会しますか？</h3>
+			<p class="txts center">退会すると、会員登録情報や<br>これまでの購入履歴が閲覧できなくなります。<br>退会する場合は、「退会する」をクリックして下さい。</p>
+			    <div class="form center">
+				        <%= link_to "退会する", confirm_hide_path(current_customer), method: :put, "data-confirm" => "本当に退会しますか？", class: "btn btn-lg btn-danger" %>
+				       <%= link_to "退会しない", edit_customer_path(current_customer), class: "btn btn-lg btn-success" %>
+			</div>

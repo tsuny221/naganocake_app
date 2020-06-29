@@ -1,0 +1,52 @@
+<div class="row customer">
+	<h2 class="midashi_txt"><i class="fas fa-users"></i>   会員情報詳細</h2>
+	<div class="cont-width">
+		<table class="table table-hover">
+			<tr>
+				<th class="bold">顧客ID</th>
+
+					<td><% if @customer.account_status == true %>
+						<p class="true_txt"><%= @customer.id %>(有効)</p>
+						<% else %>
+						<p class="false_txt"><%= @customer.id %>(退会済み)</p>
+						<% end %>
+					</td>
+				</tr>
+				<tr>
+					<th class="bold">氏名</th>
+					<td><%= @customer.name_all%></td>
+				</tr>
+				<tr>
+					<th class="bold">フリガナ</th>
+					<td><%= @customer.last_name_kana %><%= @customer.first_name_kana %></td>
+				</tr>
+				<tr>
+					<th class="bold">郵便番号</th>
+					<td><%= @customer.postcode %></td>
+				</tr>
+				<tr>
+					<th class="bold">住所</th>
+					<td><%= @customer.address %></td>
+				</tr>
+				<tr>
+					<th class="bold">電話番号</th>
+					<td><%= @customer.phone_number %></td>
+				</tr>
+				<tr>
+					<th class="bold">メールアドレス</th>
+					<td><%= @customer.email %></td>
+				</tr>
+			</table>
+			<tr>
+				<td><%= link_to "編集する", edit_admins_customer_path(@customer), class: "btn btn-default" %>
+				</td>
+
+				<td><%= link_to "注文履歴一覧を見る", admins_orders_path(@order), class: "btn btn-default" %>
+				</td>
+			</tr>
+		</div>
+	</div>
+
+
+
+

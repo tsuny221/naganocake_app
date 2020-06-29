@@ -1,0 +1,28 @@
+  <div class="row">
+   <%= render "home/sidebar", categories: Category.all %>
+   <div class="col-sm-8">
+    <h2 class="midashi_txt brown_txt bold">商品説明</h2>
+     <div class= "col-xs-12 col-md-8" >
+      <%= attachment_image_tag @product, :image, :fill, 300 ,200, format: 'jpeg', class: "product_img", fallback: "purin.jpg" %>
+    </div>
+    <div class="col-md-4 product_right">
+      <p class="txtl bold"><%= @product.name %></p>
+
+      <p class="txts"><%= @product.description %></p><br>
+
+      <p class="txtm true_txt">¥<%= @product.price_with_tax(@product.price) %>円(税込）</p>
+       <% if @product.sale_status == false %>
+        <p>売り切れ中</p>
+      <% else %>
+
+      <%= form_for @cart_item do |f| %>
+
+      <p><%= f.hidden_field :product_id, value: @product.id %></p>
+
+      <p><%= f.select :quantity, options_for_select(1..20), include_blank: "個数選択" %><%= f.submit "カートに入れる" %></p>
+
+      <% end %>
+     <% end %>
+    </div>
+  </div>
+</div>

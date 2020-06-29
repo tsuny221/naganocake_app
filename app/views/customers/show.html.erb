@@ -1,0 +1,47 @@
+	<div class="row mypage">
+		  <h2 class="midashi_txt"><i class="fas fa-user"></i>   マイページ</h2>
+		  <div class="cont-width">
+		  	<div class="col-sm-8">
+		    <h4 class="txtm brown_txt bold">登録情報</h4>
+             	<%= link_to "編集する", edit_customer_path(@customer.id), class: "edit_btn" %>
+             	<%= link_to "パスワードを変更する", new_customer_password_path(current_customer.id), class: "destroy_btn" %>
+            	<table class="table table_noborder">
+			        <tr>
+			          <th class="bold">氏名</th>
+			          <td><%= @customer.name_all%></td>
+			        </tr>
+			        <tr>
+			          <th class="bold">フリガナ</th>
+			          <td><%= @customer.last_name_kana %><%= @customer.first_name_kana %></td>
+			        </tr>
+			        <tr>
+			          <th class="bold">郵便番号</th>
+			          <td><%= @customer.postcode %></td>
+			        </tr>
+			        <tr>
+			          <th class="bold">住所</th>
+			          <td><%= @customer.address %></td>
+			        </tr>
+			        <tr>
+			          <th class="bold">電話番号</th>
+			          <td><%= @customer.phone_number %></td>
+			        </tr>
+			        <tr>
+			          <th class="bold">メールアドレス</th>
+			          <td><%= @customer.email %></td>
+			        </tr>
+			    </table>
+			</div>
+			    <div class="col-sm-4">
+				<div>
+					<span class="brown_txt bold txtm">配送先</span><br><%= link_to "一覧を見る", shipping_addresses_path(@customer.id), class: "btn btn-default" %>
+				</div>
+
+				<div>
+					<span class="brown_txt bold txtm">注文履歴</span><br>
+					<%= link_to "一覧を見る",orders_path(@customer.id), class: "btn btn-default" %>
+				</div>
+			</div>
+	    </div>
+	</div>
+

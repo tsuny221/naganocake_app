@@ -1,0 +1,67 @@
+
+<div class="row cart_item">
+	<h2  class="midashi_txt"><i class="fas fa-cart-arrow-down"></i>  カート一覧</h2>
+	<div>
+		<%= link_to 'カートを空にする', destroy_all_cart_items_path, method: :delete, class: "destroy_all_btn" %>
+	</div>
+	<table class="table product_table txts table-hover table-inverse">
+
+		<thead>
+			<tr>
+				<th class="brown_txt txts">商品名</th>
+				<th class="brown_txt txts"></th>
+				<th class="brown_txt txts">単価(税込)</th>
+				<th class="brown_txt txts">数量</th>
+				<th class="brown_txt txts">小計</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<% @sum = 0 %>
+			<% @cart_items.each do |cart_item| %>
+			<tr>
+				<td><%= attachment_image_tag(cart_item.product, :image, :fill, 100, 100, class: "product_img_s", fallback: "no_image.jpg") %></td>
+
+				<td><%= cart_item.product.name %></td>
+
+				<td><%= cart_item.product.price_with_tax(cart_item.product.price) %>円</td><%#税込金額を表示%>
+
+				<% @sum += cart_item.subtotal(cart_item.product.price,cart_item.quantity) %>
+
+				<td><%= form_for cart_item do |f| %>
+					<%= f.select :quantity, options_for_select((1..20), {selected: cart_item.quantity.to_i} ) %>
+					<%= f.submit "更新" , class: "edit_btn submit_btn bold"%></td>
+					<% end %>
+
+					<td><%= cart_item.subtotal(cart_item.product.price,cart_item.quantity) %>円</td>
+
+					<td colspan="3"><%= link_to "カートから削除",cart_item_path(cart_item), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"} , class: "destroy_btn" %></td>
+
+				</tr>
+
+				<% end %>
+			</tbody>
+
+		</table>
+		<div class="cart_items_flex">
+			<div>
+				<%= link_to "買い物を続ける", products_path, class: "return_btn" %>
+			</div>
+			<div class="total_price ">
+				<div class="txtm bold">合計金額</div>
+				<div class="txtxl bold true_txt"><%= @sum %>円</div>
+			</div>
+
+		</div>
+
+
+		　　　　　　
+
+		<p class= "text-center">
+			<%= link_to "情報入力に進む", new_order_path, class: "next_btn" %>
+		</p>
+
+	</div> 
+
+

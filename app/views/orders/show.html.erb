@@ -1,0 +1,85 @@
+<div class="row product">
+
+	<h2 class="midashi_txt"><i class="fas fa-clipboard-list"></i>   注文情報詳細</h2>
+	<div class="col-sm-8">
+		<table class="table product_table txts table-inverse">
+
+			<thead class="thead">
+				<tr>
+					<th class="brown_txt txts">商品名</th>
+					<th class="brown_txt txts"></th>
+					<th class="brown_txt txts">単価(税込)</th>
+					<th class="brown_txt txts">数量</th>
+					<th class="brown_txt txts">小計</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @sum = 0 %>
+				<% @order.order_items.each do |order_item| %>
+				<tr>
+					<td><%= attachment_image_tag(order_item.product, :image, :fill, 100, 100, class: "product_img_s", fallback: "no_image.jpg") %></td>
+
+					<td><%= order_item.product.name %></td>
+
+					<td><%= number_to_currency(order_item.tax_inclueded_price, unit: "", strip_insignificant_zeros: true) %></td><%#税込金額を表示%>
+					<% @sum += order_item.subtotal(order_item.tax_inclueded_price,order_item.quantity) %>
+
+					<td><%= order_item.quantity %>個</td>
+
+					<td><%= number_to_currency(order_item.subtotal(order_item.product.price,order_item.quantity), unit: "", strip_insignificant_zeros: true)  %></td>
+
+				</tr>
+
+				<% end %>
+			</tbody>
+
+		</table>
+	</div>
+
+	<div class="col-sm-4">
+		<table class="table product_table txts table-inverse table-bordered">
+			<tr>
+				<th class="brown_txt txts thead">送料</th>
+				<td class="txts"><%= @order.postage %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">商品合計</th>
+				<td class="txts"><%= number_to_currency(@sum, unit: "", strip_insignificant_zeros: true) %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">請求金額</th>
+				<td class="txts"><%= number_to_currency(@order.total_price, unit: "", strip_insignificant_zeros: true)%></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-8">
+		<table class="table borderless">
+			</tr>
+		<tr>
+			<th>注文日</th>
+			<td><%= @order.created_at.to_s(:datetime_jp) %></td>
+	</tr>
+			<tr>
+				<th class="col-span-3">支払い方法</th>
+			<td>
+		<%if @order.pay_type == 1 %>
+		クレジットカード
+		<% else %>
+		銀行振込
+		<% end %>
+	</td>
+	</tr>
+		<tr>
+			<th>お届け先</th>
+			<td><%= @order.address %><%= @order.postcode %><br><%= @order.direction %></td>
+	</tr>
+	</tr>
+		<tr>
+			<th>ステータス</th>
+			<td><%= @order.buy_status %></td>
+	</tr>
+</table>
+</div>

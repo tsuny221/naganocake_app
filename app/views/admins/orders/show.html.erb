@@ -1,0 +1,89 @@
+<div class="row admin-order">
+	<h2 class="midashi_txt"><i class="fas fa-clipboard-list"></i>   注文情報詳細</h2>
+	<table class="table table-hover table_width table_noborder">
+		<tr>
+			<th class="bold">購入者</th>
+			<td><%= @order.customer.name_all %></td>
+		</tr>
+		<tr>
+			<th class="bold">配送先住所</th>
+			<td><%= @order.postcode %><%= @order.address %><br><%= @order.direction %></td>
+		</tr>
+		<tr>
+			<th class="bold">支払い方法</th>
+			<td><%= @order.pay_type %></td>
+		</tr>
+		<tr>
+			<th class="bold">注文ステータス</th>
+			<td><%= form_for (@order), url: admins_order_path do |f| %>
+				<%#enum用のセレクトです%>
+				<%= f.select :buy_status, Order.buy_statuses.keys, :selected=>@order.buy_status %>
+				<%= f.submit "更新" %><% end %>
+			</td>
+		</table>
+
+
+
+	<div class="col-sm-9">
+		<table class="table product_table txts table-inverse">
+
+			<thead class="thead">
+				<tr>
+					<th class="brown_txt txts">商品名</th>
+					<th class="brown_txt txts"></th>
+					<th class="brown_txt txts">単価(税込)</th>
+					<th class="brown_txt txts">数量</th>
+					<th class="brown_txt txts">小計</th>
+					<th class="brown_txt txts">製作ステータス</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @sum = 0 %>
+				<% @order.order_items.each do |order_item| %>
+				<tr>
+					<td><%= attachment_image_tag(order_item.product, :image, :fill, 100, 100, class: "product_img_s", fallback: "no_image.jpg") %></td>
+
+					<td><%= order_item.product.name %></td>
+
+					<td><%= number_to_currency(order_item.tax_inclueded_price, unit: "", strip_insignificant_zeros: true) %></td><%#税込金額を表示%>
+
+					<% @sum += order_item.subtotal(order_item.tax_inclueded_price,order_item.quantity) %>
+
+					<td><%= order_item.quantity %>個</td>
+
+					<td><%= number_to_currency(order_item.subtotal(order_item.tax_inclueded_price,order_item.quantity), unit: "", strip_insignificant_zeros: true)  %></td>
+
+			<td><%= form_for order_item, url: admins_order_item_path(order_item) do |f| %>
+
+				<%= f.select :make_status, OrderItem.make_statuses.keys, :selected=>order_item.make_status %><%= f.submit "更新" %><% end %></td>
+				</tr>
+
+
+				<% end %>
+				<%= link_to "Destroy",admins_order_path(@order), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@order.id}" %>
+			</tbody>
+
+		</table>
+	</div>
+
+	<div class="col-sm-3">
+		<table class="table product_table txts table-inverse table-bordered">
+			<tr>
+				<th class="brown_txt txts thead">送料</th>
+				<td class="txts"><%= @order.postage %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">商品合計</th>
+				<td class="txts"><%= number_to_currency(@sum, unit: "", strip_insignificant_zeros: true) %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">請求金額</th>
+				<td class="txts"><%= number_to_currency(@order.total_price, unit: "", strip_insignificant_zeros: true)%></td>
+			</tr>
+		</table>
+	</div>
+</div>

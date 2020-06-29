@@ -1,0 +1,40 @@
+<div class="row cart_item">
+	<h2 class="midashi_txt"><i class="fas fa-clipboard-list"></i>   注文履歴一覧</h2>
+  <table class="table product_table txts table-hover table-inverse">
+    <thead class="thead">
+      <tr>
+        <th class="brown_txt txts">注文日</th>
+        <th class="brown_txt txts">配送先住所</th>
+        <th class="brown_txt txts">注文商品</th>
+        <th class="brown_txt txts">支払い金額</th>
+        <th class="brown_txt txts">注文詳細</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @orders.each do |order| %>
+      <tr>
+       <td><%= order.created_at.to_s(:datetime_jp) %></td>
+       <td><%= order.address %><br>
+        <%= order.postcode %><br>
+        <%= order.direction %>
+      </td>
+
+       <td>
+        <% order.order_items.each do |order_item| %>
+        <%= order_item.product.name %>
+        <% end %>
+      </td>
+
+
+      <td><%= number_to_currency(order.total_price, unit: "", strip_insignificant_zeros: true)%></td>
+
+      <%#税込価格表示%>
+
+      <td class="col-xs-2" ><%= link_to '詳細', order_path(order) , class: "show_btn" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class='text-center'><%= paginate @orders, class: "paginate" %></div>
+</div>

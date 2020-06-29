@@ -1,0 +1,16 @@
+<div class="col-sm-3 no-gutters">
+        <div class="sidebar orange_bg">
+            <%= image_tag('logo.png', class: "sidebar_img") %>
+            <h2 class="category_txt white_txt bold">ジャンル検索</h2>
+            <ul class="center">
+                <% categories.each do |category| %>
+                 <% if category.active_status == true %>
+                    <li><%=link_to admins_category_path(category),class: "white_txt" do %>
+                         <%= category.name %>
+                    </li>
+                    <% end %>
+                <% end %>
+                <% end %>
+            </ul>
+        </div>
+        </div>

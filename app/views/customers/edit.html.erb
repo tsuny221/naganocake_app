@@ -1,0 +1,52 @@
+ <div class="row">
+      <div class="form">
+        <h2 class="form_midashi_txt center bold">登録情報編集</h2>
+        <div class="form_cont">
+           <%= render 'layouts/errors', obj: @customer %>
+          <%= form_for(@customer) do |f| %>
+
+          <div class="field">
+            <%= f.label :last_name, "名前", class: "form_label" %><br />
+            <%= f.text_field :last_name, autofocus: true, autocomplete:"family-name", class: "form_input_s"%>
+            <%= f.text_field :first_name, autofocus: true, autocomplete:"given-name", class: "form_input_s" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :last_name_kana, "フリガナ", class: "form_label" %><br />
+            <%= f.text_field :last_name_kana, autofocus: true, autocomplete:"family-name" , class: "form_input_s"%>
+            <%= f.text_field :first_name_kana, autofocus: true, autocomplete:"given-name", class: "form_input_s"%>
+          </div>
+
+          <div class="field">
+            <%= f.label :postcode, "郵便番号", class: "form_label" %><br />
+            <%= f.text_field :postcode, autofocus: true, autocomplete: "post-code", class: "form_input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :address, "住所", class: "form_label" %><br />
+            <%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form_input" %>
+          </div>
+
+
+          <div class="field">
+            <%= f.label :phone_number, "電話番号", class: "form_label" %><br />
+            <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form_input" %>
+          </div>
+
+
+          <div class="field">
+            <%= f.label :email, "メールアドレス", class: "form_label" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form_input" %>
+          </div>
+
+
+          <div class="actions">
+            <%= f.submit "編集", class: "form_submit white_txt bold" %>
+          </div>
+          <% end %>
+          <div class="text-center">
+          <%= link_to "退会する", customers_confirm_path, class: "btn btn-danger"  %>
+      </div>
+        </div>
+      </div>
+    </div>

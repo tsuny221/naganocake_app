@@ -1,0 +1,51 @@
+<div class="row product">
+
+  <h2 class="midashi_txt"><i class="fas fa-shopping-bag"></i>   商品一覧</h2>
+  <div>
+     <%= link_to '商品登録', new_admins_product_path, class: "form_submit white_txt" %>
+  </div>
+  <table class="table product_table txts table-hover table-inverse">
+    <thead class="thead">
+      <tr>
+        <th class="brown_txt txts">写真</th>
+        <th class="brown_txt txts">商品名</th>
+        <th class="brown_txt txts">説明</th>
+        <th class="brown_txt txts">単価</th>
+        <th class="brown_txt txts">税込</th>
+        <th class="brown_txt txts">商品名</th>
+        <th class="brown_txt txts">カテゴリー</th>
+        <th class="brown_txt txts"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+      <tr>
+       <td><%= attachment_image_tag(product, :image, :fill, 100, 100, class: "product_img_s", fallback: "no_image.jpg") %></td>
+         <td><%= product.name %></td>
+         <td><%= product.description %></td>
+
+
+         <td><%= product.price %>円</td>
+
+         <td><%= product.price_with_tax(product.price) %>円</td>
+         <%#税込価格表示%>
+
+         <td><%= product.category.name %></td>
+
+         <td><% if product.sale_status == true %>
+          <p>販売中</p>
+          <% else %>
+          <p>売り切れ</p>
+          <% end %>
+        </td>
+          <td class="col-xs-2" ><%= link_to '詳細', admins_product_path(product) , class: "show_btn" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+ <div class='text-center'><%= paginate @products, class: "paginate" %></div>
+</div>
+
+
+

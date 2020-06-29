@@ -1,0 +1,47 @@
+<div class="row category">
+
+ <h2 class="midashi_txt"><i class="fas fa-shopping-bag"></i>   商品登録</h2>
+<div class="form_cont">
+   <%= render 'layouts/errors', obj: @product %>
+    <%= form_for (@product), url: admins_product_path do |f| %>
+    <div class="field">
+      <%= f.label :name, "ジャンル名", class: "form_label" %>
+      <%= f.text_field :name, class: "form_input" %>
+    </div>
+    <div class="field">
+      <%= f.label :description, "商品説明", class: "form_label" %>
+      <%= f.text_area :description, class: "form_input" %>
+    </div>
+    <div class="field">
+      <%= f.label :price, "単価", class: "form_label" %>
+      <%= f.text_field :price, class: "form_input_s" %> <span class="txtm">円</span>
+    </div>
+    <div class="field">
+		<%= f.label :image, "商品画像", class: "form_label" %>
+		<%= f.attachment_field :image, class: "form_input"  %>
+	</div>
+
+	<div class=“field row”>
+		<%= f.label :category_id, "ジャンル", class: "brown_txt"  %>
+		<%= f.collection_select :category_id, @categories, :id, :name, include_blank: "選択してください", class: "form_input" %>
+	</div>
+
+	<div class=“field”>
+		<%= f.label :sale_status, "販売ステータス", class: "brown_txt"  %>
+		<%= f.select :sale_status, [["販売中",true],["売り切れ",false]], class: "form_input"  %>
+	</div>
+
+    <div class="actions">
+      <%= f.submit "登録", class: "form_submit_s white_txt bold", class: "form_submit white_txt" %>
+    </div>
+    <% end %>
+  </div>
+
+<%= link_to "Back", admins_products_path, class: "back" %>	
+</div>
+
+
+
+
+
+

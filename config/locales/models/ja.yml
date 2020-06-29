@@ -1,0 +1,93 @@
+ja:
+  activerecord:
+    models:
+      customer: お客様
+      shipping_address: 配送先
+      product: 商品
+      cart_item: カートアイテム
+      admin: 管理者
+      category: カテゴリー
+      order: 注文
+      order_item: 注文商品
+
+    attributes:
+        customer:
+          id: ID
+          first_name: 名前
+          last_name: 姓
+          first_name_kana: カナ
+          last_name_kana: カナ
+          email: メールアドレス
+          crypted_password: パスワード
+          direction: 宛名
+          postcode: 郵便番号
+          address: 住所
+          account_status: 会員ステータス
+          phone_number: 電話番号
+          created_at: 作成日
+          updated_at: 更新日
+
+        shipping_address:
+          direction: 宛名
+          postcode: 郵便番号
+          address: 住所
+          created_at: 作成日
+          updated_at: 更新日
+
+        product:
+          id: ID
+          name: 商品名
+          description: 商品説明
+          category: カテゴリー
+          price: 値段
+          image_id: イメージ
+          sale_atatus: 販売ステータス
+          category: カテゴリー
+          created_at: 作成日
+          updated_at: 更新日
+
+        cart_item:
+          id: ID
+          customer: カスタマー
+          product: 商品
+          quantity: 数量
+          created_at: 作成日
+          updated_at: 更新日
+
+        admin:
+          id: ID
+          email: メールアドレス
+          encrypted_password: パスワード
+          created_at: 作成日
+          updated_at: 更新日
+
+        category:
+          id: 会員ID
+          name: 商品名
+          active_status: 有効ステータス
+          created_at: 作成日
+          updated_at: 更新日
+
+        order:
+          id: ID
+          address: 住所
+          postcode: 郵便番号
+          direction: 宛名
+          buy_status: 注文ステータス
+          pay_type: 支払い方法
+          postage: 送料
+          total_price: 合計金額
+          customer: 会員
+          created_at: 作成日
+          updated_at: 更新日
+
+        order_item:
+          id: ID
+          order: 注文
+          product_: 商品
+          tax_included_price: 注文時税込価格
+          make_status: 制作ステータス
+          quantity: 数量
+          created_at: 作成日
+          updated_at: 更新日
+

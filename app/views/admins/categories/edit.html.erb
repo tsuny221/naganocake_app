@@ -1,0 +1,22 @@
+<div class="row category">
+    <h2 class="midashi_txt">ジャンルの編集</h2>
+  <div class="form_cont">
+    <%= render 'layouts/errors', obj: @category %>
+    <%= form_for (@category), url: admins_category_path do |f| %>
+    <div class="field">
+      <%= f.label :name, "ジャンル名", class: "form_label" %>
+      <%= f.text_field :name, class: "form_input" %>
+    </div>
+    <div class="field brown_txt">
+      <%= f.radio_button :active_status, :true %>
+      <%= f.label :active_status, "有効", {value: :true, style: "display: inline-block;"} %>
+      <%= f.radio_button :active_status, :false %>
+      <%= f.label :active_status, "無効", {value: :false, style: "display: inline-block;"} %>
+    </div>
+
+    <div class="category_actions">
+      <%= f.submit "更新する", class: "form_submit_s white_txt bold" %>
+    </div>
+    <% end %>
+  </div>
+  </div>

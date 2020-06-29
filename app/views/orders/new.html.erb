@@ -1,0 +1,47 @@
+<div class="row product">
+  <div class="form">
+    <div class="form_cont">
+     <h2 class="form_midashi_txt center bold">注文情報入力</h2>
+     <%= render 'layouts/errors', obj: @order %>
+       <%= form_for @order, url: confirm_orders_path , method: :get do |f| %>
+     <div class="form_area">
+      <h4 class="bold brown_txt">支払い方法</h4>
+      <%= radio_button_tag :pay_types, 1,　checked="checked" %>
+      <%= label_tag :クレジットカード %><br>
+
+      <%= radio_button_tag :pay_types, 2 %>
+      <%= label_tag :銀行振り込み %><br>
+    </div>
+
+    <div class="form_area">
+      <h4 class="bold brown_txt">お届け先</h4>
+      <div>
+        <%= radio_button_tag :newaddress, 1, checked="checked" %>
+        <%= label_tag :ご自身の住所 %><br>
+        <%= @customer.postcode %>
+        <%= @customer.address %><br>
+        <%= @customer.last_name %>
+        <%= @customer.first_name %>
+      </div>
+
+      <div class="form_area">
+        <%= radio_button_tag :newaddress, 2 %>
+        <%= label_tag :登録済みの住所から選択 %><br>
+        <%= collection_select :order, :address2, @customer.shipping_addresses ,:id ,:address_all %>
+      </div>
+
+      <div class="form_area">
+        <%= radio_button_tag :newaddress, 3 %>
+        　<%= label_tag :新しいお届け先 %><br>
+        <td>郵便番号</td><%= text_field_tag :postcode3 %><br>
+        <td>住所　　</td><%= text_field_tag :address3 %><br>
+        <td>宛名　　</td><%= text_field_tag :direction3 %><br>
+      </div>
+    </div>
+    <div class="center form">
+      <%= f.submit '確認画面へ進む' , class: "form_submit white_txt bold"%>
+    </div>
+    <% end %>
+  </div>
+</div>
+</div>

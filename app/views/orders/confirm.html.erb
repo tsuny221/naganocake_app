@@ -1,0 +1,96 @@
+<div class="row product">
+
+	<h2 class="midashi_txt"><i class="fas fa-clipboard-list"></i>   注文情報確認</h2>
+	<div class="col-sm-8">
+		<table class="table product_table txts table-inverse">
+
+			<thead class="thead">
+				<tr>
+					<th class="brown_txt txts">商品名</th>
+					<th class="brown_txt txts"></th>
+					<th class="brown_txt txts">単価(税込)</th>
+					<th class="brown_txt txts">数量</th>
+					<th class="brown_txt txts">小計</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @sum = 0 %>
+				<% @customer.cart_items.each do |cart_item| %>
+				<tr>
+					<td><%= attachment_image_tag(cart_item.product, :image, :fill, 100, 100, class: "product_img_s", fallback: "no_image.jpg") %></td>
+
+					<td><%= cart_item.product.name %></td>
+
+					<td><%= number_to_currency(cart_item.product.price_with_tax(cart_item.product.price), unit: "", strip_insignificant_zeros: true) %></td><%#税込金額を表示%>
+
+					<% @sum += cart_item.subtotal(cart_item.product.price,cart_item.quantity) %>
+
+					<td><%= cart_item.quantity %>個</td>
+
+					<td><%= number_to_currency(cart_item.subtotal(cart_item.product.price,cart_item.quantity), unit: "", strip_insignificant_zeros: true)  %></td>
+
+				</tr>
+
+				<% end %>
+			</tbody>
+
+		</table>
+	</div>
+
+	<div class="col-sm-4">
+		<table class="table product_table txts table-inverse table-bordered">
+			<tr>
+				<th class="brown_txt txts thead">送料</th>
+				<td class="txts"><%= @order.postage %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">商品合計</th>
+				<td class="txts"><%= number_to_currency(@sum, unit: "", strip_insignificant_zeros: true) %></td>
+			</tr>
+
+			<tr>
+				<th class="brown_txt txts thead">請求金額</th>
+				<td class="txts"><%= number_to_currency(@order.postage + @sum, unit: "", strip_insignificant_zeros: true)%></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-8">
+		<table class="table borderless">
+			<tr>
+				<th class="col-span-3">支払い方法</th>
+			<td>
+		<%if @order.pay_type == 1 %>
+		クレジットカード
+		<% else %>
+		銀行振込
+		<% end %>
+	</td>
+	</tr>
+		<tr>
+			<th>お届け先</th>
+			<td>〒<%= @order.postcode %></br>
+				<%= @order.address %><br>
+				<%= @order.direction %>様</td>
+	</tr>
+</table>
+</div>
+
+<div class="center">
+	<%= form_with model: @order do |f| %>
+	<%= f.hidden_field :newaddress, value: @order.newaddress %>
+	<%= f.hidden_field :address, value: @order.address %>
+	<%= f.hidden_field :postcode, value: @order.postcode %>
+	<%= f.hidden_field :direction, value: @order.direction %>
+	<%= f.hidden_field :pay_type, value: @order.pay_type %>
+	<%= f.hidden_field :buy_status, value: :入金待ち %>
+	<%= f.hidden_field :make_status, value: :着手不可 %>
+	<%= f.hidden_field :postage, value: @order.postage %>
+	<%= f.hidden_field :total_price, value: @order.postage + @sum  %>
+<%#hidden消したよ%>
+	<%= f.submit '注文確定', class: "form_submit" %>
+	<% end %>
+</div>
+</div>
+</div>

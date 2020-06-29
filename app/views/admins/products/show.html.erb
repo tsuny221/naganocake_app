@@ -1,0 +1,37 @@
+
+<div class="row product">
+  <h2 class="midashi_txt"><i class="fas fa-shopping-bag"></i>   商品情報</h2>
+  <div class="col-sm-6 center">
+    <%= attachment_image_tag @product, :image, :fill, 300, 200, format: 'jpeg', class: "profile-img", fallback: "purin.jpg" %>
+  </div>
+  <div class="col-sm-6">
+    <div class="border">
+    <p class="txtm brown_txt">商品名</p>
+    <p><%= @product.name %></p>
+  </div>
+  <div class="border">
+    <p class="txtm brown_txt">商品説明</p>
+    <p><%= @product.description %></p>
+</div>
+<div class="border">
+    <p class="txtm brown_txt">単価</p>
+    <p><%= @product.price %>円　<%= @product.price_with_tax(@product.price) %>円（税込）</p>
+    <%#税込価格表示%>
+</div>
+<div class="border">
+    <p class="txtm brown_txt">ジャンル</p>
+    <p><%= @product.category.name %></p>
+  </div>
+<div class="border">
+    <p class="txtm brown_txt">販売ステータス</p>
+      <% if @product.sale_status == true %>
+      <p>販売中</p>
+      <% else %>
+      <p>売り切れ</p>
+      <% end %>
+</div>
+    <p class="product_data"><%= link_to '編集する', edit_admins_product_path(@product), class: "edit_btn" %>  <%= link_to "削除する", admins_product_path(@product), method: :delete, "data-confirm" => 'Are you sure?', class: "destroy_btn" %>
+    </p>
+</div>
+  <p><%= link_to "Back", admins_products_path, class: "orange_txt" %></p>
+</div>

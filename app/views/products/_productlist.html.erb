@@ -1,0 +1,21 @@
+<div class="product_index">
+  <% products.each do |product| %>
+  <% if product.sale_status == false %>
+  <div class="col-sm-4 col product_link">
+    <%= link_to(product_path(product)) do %>
+    <%= attachment_image_tag product, :image, :fill, 1000, 600, format: 'jpeg', class: "product_img", fallback: "purin.jpg" %>
+    <p class="txts brown_txt"><%= product.name %><span class="badge badge-danger">売り切れ中</span></p>
+    <p class="txts brown_txt">￥<%= product.price %></p>
+    <% end %>
+  </div>
+  <% else %>
+  <div class="col-sm-4 col product_link">
+    <%= link_to(product_path(product)) do %>
+    <%= attachment_image_tag product, :image, :fill, 1000, 600, format: 'jpeg', class: "product_img", fallback: "purin.jpg" %>
+    <p class="txts brown_txt"><%= product.name %></p>
+    <p class="txts brown_txt">￥<%= product.price %></p>
+    <% end %>
+  </div>
+  <% end %>
+  <% end %>
+</div>

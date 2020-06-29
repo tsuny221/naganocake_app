@@ -1,0 +1,64 @@
+<header class="navbar navbar-fixed-top ">
+  <div class="container">
+    <p id= "notice" class="notice"><%= notice %></p>
+    <nav class='nav navbar-nav navbar-left' >
+      <% if admin_signed_in? %>
+      <%= link_to admins_home_path do %>
+      <%= image_tag('logo.png', class: "logo_img") %>
+      <% end %>
+       <% else %>
+      <%= link_to root_path do %>
+      <%= image_tag('logo.png', class: "logo_img") %>
+      <% end %>
+      <% end %>
+
+    </nav><!--ロゴ-->
+
+    <% if admin_signed_in?  %>
+    <form role="search" method="get" class="search_form">
+      <div class="search_cont">
+        <input type="search" class="search_field" placeholder="Search" value="" name="s">
+        <span class="search_icon"><i class="fa fa-search"></i></span>
+      </div>
+    </form>
+    <% end %><!--検索フォーム-->
+
+
+    <nav class="collapse navbar-collapse" id="navbarList">
+      <ul class="nav navbar-nav navbar-right">
+
+        <% if admin_signed_in? %>
+        <li><%= link_to '商品一覧', admins_products_path, class: "nav_txt" %></li>
+
+        <li><%= link_to '会員一覧', admins_customers_path, class: "nav_txt" %></li>
+
+        <li><%= link_to '注文一覧', admins_orders_path, class: "nav_txt" %></li>
+
+        <li><%= link_to 'ジャンル一覧', admins_categories_path, class: "nav_txt" %></li>
+
+        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav_txt" %></li><!--管理者ナビゲーション-->
+
+        <% elsif customer_signed_in? %>
+        <li><p class="customer-name_txt brown_txt bold">ようこそ、<%= current_customer.last_name %><%= current_customer.first_name %>さん！</p></li>
+        <li><%= link_to 'マイページ', customer_path(current_customer), class: "nav_txt" %></li>
+
+        <li><%= link_to '商品一覧', products_path, class: "nav_txt" %></li>
+
+        <li><%= link_to 'カート', cart_items_path, class: "nav_txt" %></li>
+
+        <li><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: "nav_txt" %></li><!--顧客ナビゲーション -->
+
+        <% else %>
+        <li><%= link_to '商品一覧', products_path, class: "nav_txt" %></li>
+
+        <li><%= link_to '新規登録', new_customer_registration_path, class: "nav_txt" %></li>
+
+        <li><%= link_to 'ログイン', new_customer_session_path, class: "nav_txt" %></li>
+        <% end %><!--共通ナビ-->
+      </ul>
+    </nav>
+    <button class="navbar-toggler" data-toggle="collapse" data-toggle="#id-name" data-target="#navbarList" aria-controls="navbarList" aria-expanded="false" aria-label="ナビゲーションの切替">
+    </button><!--ハンバーガーメニュー-->
+
+  </div>
+</header>

@@ -1,0 +1,18 @@
+<div class="container">
+<div class="row">
+        <%= render "home/sidebar", categories: Category.all %>
+        <div class="col-sm-8 no-gutters">
+        <div class="main_visual">
+          <%= image_tag('main.jpg', class: "main_img") %>
+          <div class="main_txt white_txt">
+            <p class="txtm bold"><%= image_tag('main_txt.png', class: "main_txt_img") %></p>
+            <p class="txtxs sub_txt">こちらはケーキ販売のECサイトになります。<br>会員でない方も商品の閲覧はできます。<br>ご購入の際には会員登録が必要です。</p>
+        </div>
+      </div>
+      <div class="product_index">
+           <h2 class="midashi_txt brown_txt bold">おすすめ商品</h2>
+           <%= render "products/productlist", products: @products %>
+    </div>
+</div>
+ <div class='text-center'><%= paginate @products, class: "paginate" %></div>
+</div>
